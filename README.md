@@ -19,7 +19,7 @@ With this project I want to make a timer that would help me study, and for that,
 
 Screenshot
 ----------
-<p align="center">The picture will be add when the project is ready!</p>
+<img src="assets/screenshot/screenshot.png"></img>
 
 How to use
 ----------
@@ -29,13 +29,14 @@ How to use
 
 Status
 ------
-:rotating_light: :construction: Building... :construction: :rotating_light:
+Concluded ✔️
 
 Features
 --------
 - [x] Make sessions of 25 minutes
 - [x] Make breaks of 5 minutes
 - [ ] Make sessions and breaks different then 25 and 5 minutes
+- [ ] Stop the timer
 
 Technologies
 ------------
