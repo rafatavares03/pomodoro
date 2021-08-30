@@ -1,5 +1,6 @@
 const timerContainer = document.querySelector('#timer');
 const timer = new Date;
+timer.pomodoroSession = true;
 
 function WriteTimer() {
     const minutes = (timer.getMinutes() < 10) ? '0' + timer.getMinutes() : timer.getMinutes();
@@ -8,15 +9,15 @@ function WriteTimer() {
 }
 
 function Pomodoro() {
-    timer.setMinutes(25);
+    timer.setMinutes(1);
     timer.setSeconds(0);
     WriteTimer();
 }
 Pomodoro();
 
 function Break() {
-    timer.setMinutes(5);
-    timer.setSeconds(0);
+    timer.setMinutes(0);
+    timer.setSeconds(30);
     WriteTimer();
 
 }
@@ -29,17 +30,35 @@ document.querySelector('#start').addEventListener('click', function Count() {
         WriteTimer();
         if(timer.getMinutes() === 0 && timer.getSeconds() === 0) {
             clearInterval(interval);
+
+
             function GoToABreak() {
-                const answer = window.confirm("Do you wan't to do a 5 minutes break?")
+                const answer = window.confirm("Do you want to do a 5 minutes break?");
                 if (answer === true) {
                     Break();
                     Count();
+                    timer.pomodoroSession = false;
                 } else {
                     Pomodoro();
                 }
             }
-            GoToABreak();
+            
+            function AnotherPomodoroSession() {
+                const answer = window.confirm("Do you want to make another pomodoro session?");
+                Pomodoro();
+                if (answer === true) {
+                    Count();
+                    timer.pomodoroSession = true;
+                }
+            }
+
+            
+            if(timer.pomodoroSession === true) {
+                GoToABreak();
+            } else {
+                AnotherPomodoroSession();
+            }
         }
-    }, 1000)
+    }, 1000);
     
 })
