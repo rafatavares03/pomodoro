@@ -9,20 +9,30 @@ function WriteTimer() {
 }
 
 function Pomodoro() {
-    timer.setMinutes(1);
+    const button = document.querySelector('#start');
+    if (button.classList.contains('hide')) {
+        button.classList.remove('hide');
+    }
+
+    timer.setMinutes(25);
     timer.setSeconds(0);
     WriteTimer();
+
 }
 Pomodoro();
 
 function Break() {
-    timer.setMinutes(0);
-    timer.setSeconds(30);
+    timer.setMinutes(5);
+    timer.setSeconds(0);
     WriteTimer();
 
 }
 
 document.querySelector('#start').addEventListener('click', function Count() {
+    if (!document.querySelector('#start').classList.contains('hide')) {
+        document.querySelector('#start').classList.add('hide');
+    }
+
     const interval = setInterval(() => {
         let seconds = timer.getSeconds();
         seconds--;
@@ -60,5 +70,4 @@ document.querySelector('#start').addEventListener('click', function Count() {
             }
         }
     }, 1000);
-    
 })
