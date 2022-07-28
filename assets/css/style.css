@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -6,17 +8,15 @@
 
 body {
     height: 100vh;
-    background-color: #444;
-    color: #eee;
+    background-color: #000;
+    color: #52ff02;
     display: flex;
+    font-family: 'Lato', sans-serif;
     justify-content: center;
     align-items: center;
 }
 
 .container {
-    width: calc(100vw - 60px);
-    height: calc(100vh - 40px);
-    border: solid 30px #eee;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,21 +24,22 @@ body {
 }
 
 .timer {
-    font-size: 150px;
+    font-size: 8rem;
     margin-bottom: 30px;
 }
 
 .button {
-    height: 50px;
-    width: 110px;
-    border: solid 3px #eee;
-    background-color: #444;
-    color: #eee;
+    border: solid 3px #52ff02;
+    border-radius: 50px;
+    background-color: #000;
+    color: #52ff02;
+    font-weight: bold;
+    padding: 10px 50px;
 }
 
 .button:hover {
-    background-color: #eee;
-    color: #444;
+    background-color: #52ff02;
+    color: #000;
 }
 
 .hide {
