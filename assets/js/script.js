@@ -1,11 +1,25 @@
 const timerContainer = document.querySelector('#timer');
-const jsonTimer = (localStorage.getItem("timer")) ? localStorage.getItem("timer") : false;
-const timer = (jsonTimer) ? new Date(JSON.parse(jsonTimer)) : new Date;
-//timer.pomodoroSession = true;
-console.log(jsonTimer, typeof jsonTimer);
+const timer = restoreTimer() ;
+WriteTimer();
 console.log(timer, typeof timer);
 
+function restoreTimer() {
+  const jsonTimer = window.localStorage.getItem('timer');
+  const timer = new Date(JSON.parse(jsonTimer));
+  console.log(timer);
+  return timer;
+}
 
+function newTimer() {
+  const timer = new Date;
+  Pomodoro()
+  timer.inPomodoro = true;
+  timer.inBreak = false;
+
+  WriteTimer()
+
+  return timer;
+}
 
 function WriteTimer() {
   const minutes = (timer.getMinutes() < 10) ? '0' + timer.getMinutes() : timer.getMinutes();
@@ -25,12 +39,6 @@ function Pomodoro() {
   
 }
 
-if (timer.inPomodro || timer.inBreak) {
-  WriteTimer();
-} else {
-  Pomodoro();
-}
-
 function Break() {
   timer.setMinutes(5);
   timer.setSeconds(0);
@@ -48,7 +56,8 @@ document.querySelector('#start').addEventListener('click', function Count() {
     timer.setSeconds(seconds);
     const jsonTimer = JSON.stringify(timer);
     window.localStorage.removeItem('timer');
-    window.localStorage.setItem("timer", jsonTimer);
+    window.localStorage.setItem('timer', jsonTimer);
+    console.log(window.localStorage.getItem('timer'));
     WriteTimer();
     if (timer.getMinutes() === 0 && timer.getSeconds() === 0) {
       WriteTimer();
