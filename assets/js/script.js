@@ -1,25 +1,6 @@
 const timerContainer = document.querySelector('#timer');
-const timer = restoreTimer() ;
-WriteTimer();
-console.log(timer, typeof timer);
-
-function restoreTimer() {
-  const jsonTimer = window.localStorage.getItem('timer');
-  const timer = new Date(JSON.parse(jsonTimer));
-  console.log(timer);
-  return timer;
-}
-
-function newTimer() {
-  const timer = new Date;
-  Pomodoro()
-  timer.inPomodoro = true;
-  timer.inBreak = false;
-
-  WriteTimer()
-
-  return timer;
-}
+const timer = new Date;
+timer.pomodoroSession = true;
 
 function WriteTimer() {
   const minutes = (timer.getMinutes() < 10) ? '0' + timer.getMinutes() : timer.getMinutes();
@@ -36,8 +17,9 @@ function Pomodoro() {
   timer.setMinutes(25);
   timer.setSeconds(0);
   WriteTimer();
-  
 }
+
+Pomodoro();
 
 function Break() {
   timer.setMinutes(5);
@@ -49,20 +31,14 @@ document.querySelector('#start').addEventListener('click', function Count() {
   if (!document.querySelector('#start').classList.contains('hide')) {
     document.querySelector('#start').classList.add('hide');
   }
-  
+
   const interval = setInterval(() => {
     let seconds = timer.getSeconds();
     seconds--;
     timer.setSeconds(seconds);
-    const jsonTimer = JSON.stringify(timer);
-    window.localStorage.removeItem('timer');
-    window.localStorage.setItem('timer', jsonTimer);
-    console.log(window.localStorage.getItem('timer'));
     WriteTimer();
     if (timer.getMinutes() === 0 && timer.getSeconds() === 0) {
-      WriteTimer();
       clearInterval(interval);
-
 
       function GoToABreak() {
         const answer = window.confirm("Do you want to do a 5 minutes break?");
@@ -91,20 +67,5 @@ document.querySelector('#start').addEventListener('click', function Count() {
         AnotherPomodoroSession();
       }
     }
-  }, 1000);
-});
-
-/*
-const circle = document.querySelector(".progress-bar--circle");
-const radius = circle.r.baseVal.value;
-const circumference = radius * 2 * Math.PI;
-console.log(radius, circumference)
-
-circle.style.strokeDasharray = circumference;
-circle.style.strokeDashoffset = circumference;
-
-function setProgress(percent) {
-  const offset = circumference - (percent / 100) * circumference;
-  circle.style.strokeDashoffset = offset;
-}
-*/
+  }, 1000)
+})
